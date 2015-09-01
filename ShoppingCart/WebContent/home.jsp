@@ -9,7 +9,19 @@
 <title>Login</title>
 </head>
 <body>
-
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">    
+    </div>
+    <div>
+      <ul class="nav navbar-nav">      
+      <li class="active"><a href="home.jsp">Shopping Cart</a></li>     
+       <li><a href="products">Product List</a></li> 
+        <li><a href="admin">Admin Page</a></li>   
+      </ul>
+    </div>
+  </div>
+</nav>
 <h1 align="center">Welcome To Shopping!</h1>
 
 <div align="center">

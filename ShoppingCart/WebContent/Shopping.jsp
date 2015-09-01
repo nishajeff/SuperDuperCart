@@ -33,6 +33,11 @@ ${message1}
 <input type="submit" value="Enter Product" id="submit">
 </form>
 </div>
+<div align="left">
+<form action ="SaveCart" method="post">
+<input type="submit" value="Save Cart" id="submit">
+</form>
+</div>
 <div align="right">
 <form action ="Confirmation" method="post">
 <input type="submit" value="Confirm Order" id="submit">

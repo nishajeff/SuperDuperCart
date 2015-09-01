@@ -26,9 +26,9 @@ public class Shopper implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Cart
+	//bi-directional many-to-one association to Admincart
 	@OneToMany(mappedBy="shopper")
-	private List<Cart> carts;
+	private List<Admincart> admincarts;
 
 	public Shopper() {
 	}
@@ -65,26 +65,26 @@ public class Shopper implements Serializable {
 		this.name = name;
 	}
 
-	public List<Cart> getCarts() {
-		return this.carts;
+	public List<Admincart> getAdmincarts() {
+		return this.admincarts;
 	}
 
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
+	public void setAdmincarts(List<Admincart> admincarts) {
+		this.admincarts = admincarts;
 	}
 
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setShopper(this);
+	public Admincart addAdmincart(Admincart admincart) {
+		getAdmincarts().add(admincart);
+		admincart.setShopper(this);
 
-		return cart;
+		return admincart;
 	}
 
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setShopper(null);
+	public Admincart removeAdmincart(Admincart admincart) {
+		getAdmincarts().remove(admincart);
+		admincart.setShopper(null);
 
-		return cart;
+		return admincart;
 	}
 
 }

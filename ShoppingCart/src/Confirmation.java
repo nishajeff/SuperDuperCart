@@ -55,17 +55,18 @@ public class Confirmation extends HttpServlet {
 		MathContext mc = new MathContext(4); 
 		HttpSession session = request.getSession(true);		
 		Shopping shop=(Shopping) session.getAttribute("shop");
+		Shopper s=(Shopper) session.getAttribute("user");
 		HashMap<String, Cart> h=shop.getMap();
-        for (Map.Entry<String,Cart> entry : h.entrySet())
+       /* for (Map.Entry<String,Cart> entry : h.entrySet())
         {
         	System.out.println("Sum="+Sum);
        	 Cart temp=entry.getValue();
        	Sum= Sum.add(temp.getTotal(), mc);
        	 
        	 model.DBUtil.insert(temp);
-        }
+        }*/
 
-        message+="<h3 align=\"center\">Thank you for shopping with us!</h3><br><h2>Order Summary:</h2>";
+        message+="<h3 align=\"center\">Thank you for shopping with us!</h3><br><h2 align=\"center\">Order Summary:</h2>";
         /*Shopper s= (Shopper) session.getAttribute("user");	
         EntityManager em=DBUtil.getEmFactory().createEntityManager();
 		String q="select c from Cart c where c.shopper.userId="+s.getUserId();
@@ -85,10 +86,14 @@ public class Confirmation extends HttpServlet {
           		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+	
           		   
           		  "</td></tr>" ; 
-			
+			Sum= Sum.add(temp.getTotal(), mc);
 			
 		}
 		message+="<h4>Grand Total= "+Sum+"</h4>";
+		int deletedCount=DBUtil.deleteCart(s);
+		//TypedQuery<Cart>bq=em.createQuery(q,Cart.class);
+		//int deletedCount = bq.executeUpdate();
+		message+="<h4>"+deletedCount+" Items from saved cart have been deleted on checkout.</h4>";
 		request.setAttribute("message", message);						
 		getServletContext().getRequestDispatcher("/Confirm.jsp").forward(request, response);
 	}

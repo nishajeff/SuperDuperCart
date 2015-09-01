@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Cart;
 import model.DBUtil;
 import model.Product;
 import model.Shopper;
+import model.Shopping;
 
 
 /**
@@ -68,6 +70,28 @@ public class Login extends HttpServlet {
 			message+="Welcome back "+temp.getName()+"!Begin Shopping...<br>";
 			s=temp;
 		}
+		
+		q="select c from Cart c where c.shopper.userId= "+s.getUserId();
+		TypedQuery<Cart>bq2=em.createQuery(q,Cart.class);
+		List<Cart> list_cart=bq2.getResultList();
+		if(!(list_cart==null || list_cart.isEmpty())){
+			Shopping shop=new Shopping();
+			 message+="<h3 align=\"center\">Continue Shopping!</h3><br><h2>Order Summary:</h2>";
+			 message+="<div align=\"center\"><table style=\"border:2px solid black\">";
+		        message+="<th style=\" background-color:gray;border:2px solid black\">Product Name</th><th style=\" background-color:gray;border:2px solid black\">Quantity</th><th style=\" background-color:gray;border:2px solid black\">Total</th>";
+		        for(Cart temp:list_cart){
+		        	message+="<tr ><td style=\" background-color:white;border:2px solid black\">"+temp.getProduct().getName() +  
+							
+		           		   "</td><td style=\" background-color:white;border:2px solid black\">"+temp.getQty()+
+		           		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+	
+		           		   
+		           		  "</td></tr>" ; 
+		        	shop.putToMap(temp.getProduct().getName(), temp);
+		        }		       
+		        session.setAttribute("shop",shop);
+		        
+		}
+		
 		message+="<div align=\"center\"><table style=\"border:2px solid black\">";
         message+="<th style=\" background-color:gray;border:2px solid black\">ProductID</th>";
 		q="select p from Product p ";
