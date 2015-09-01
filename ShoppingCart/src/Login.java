@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.DBUtil;
+import model.Product;
 import model.Shopper;
 
 
@@ -22,7 +23,8 @@ import model.Shopper;
 @WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    String message="";   
+    String message=""; 
+    String message1="";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -44,7 +46,8 @@ public class Login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		message="";		
+		message1="";
+		message="";
 		HttpSession session = request.getSession();
 		
 		
@@ -62,11 +65,23 @@ public class Login extends HttpServlet {
 		else{
 		message+="Login Successful!<br>";
 		for(Shopper temp:list){
-			message+="Welcome back "+temp.getName()+"!Start Tweeting...<br>";
+			message+="Welcome back "+temp.getName()+"!Begin Shopping...<br>";
 			s=temp;
 		}
-		session.setAttribute("user", s);
+		message+="<div align=\"center\"><table style=\"border:2px solid black\">";
+        message+="<th style=\" background-color:gray;border:2px solid black\">ProductID</th>";
+		q="select p from Product p ";
+		TypedQuery<Product>bq1 =em.createQuery(q,Product.class);
+		List<Product> listp=bq1.getResultList();
+		for(Product temp:listp){
+			message+="<tr ><td style=\" background-color:white;border:2px solid black\"><a href=\"details?id="+temp.getPid() +"\">"+temp.getPid()+"</a>"+					
+          		  
+          		  "</td></tr>" ;  
 		}
+		session.setAttribute("user", s);
+		session.setAttribute("Products", listp);
+		}
+		
 		request.setAttribute("message", message);
 		if(list==null || list.isEmpty())
 			getServletContext().getRequestDispatcher("/output.jsp").forward(request, response);

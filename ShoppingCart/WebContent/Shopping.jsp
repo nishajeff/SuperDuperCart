@@ -23,6 +23,7 @@ ${message}
     </div>
   </div>
 </nav>
+${message1}
 <div align="center">
 <form action="PutIntoCart" method="post">
 <label >Product ID: </label>
@@ -33,7 +34,7 @@ ${message}
 </form>
 </div>
 <div align="right">
-<form action ="OrderTotal" method="post">
+<form action ="Confirmation" method="post">
 <input type="submit" value="Confirm Order" id="submit">
 </form>
 </div>

@@ -47,7 +47,8 @@ public class CreateAccount extends HttpServlet {
 		message="";
 		String name=request.getParameter("name");
 		String address=request.getParameter("address");
-		int num=Integer.parseInt("number");
+		
+		Long num=Long.parseLong(request.getParameter("number"));
 		Shopper s=new Shopper();
 		s.setName(name);
 		s.setAddress(address);
