@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Cart;
 import model.DBUtil;
+import model.Orderhist;
 import model.Product;
 import model.Shopper;
 import model.Shopping;
@@ -89,7 +90,7 @@ public class Confirmation extends HttpServlet {
 	          		   "</td><td style=\" background-color:white;border:2px solid black\">"+temp.getQty()+
 	          		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+          		   
 	          		  "</td></tr>" ; 
-			DBUtil.updateCart(temp);
+			//DBUtil.updateCart(temp);
 			Sum= Sum.add(temp.getTotal(), mc);
 		 }
 		Total=Sum.multiply(Tax, mc);
@@ -98,6 +99,33 @@ public class Confirmation extends HttpServlet {
 		Sum=Sum.subtract(Total, mc);
 		message+="<h3>Tax=6%</h3>";
 		message+="<h2>Grand Total= "+Sum+"</h2>";
+		message+="<p>Payment Accepted.</p><h4>The grand total of "+Sum+"$ has been charged on your credit card.</h4>";
+		message+="<h4>Billing/Shipping Address:</h4>";
+		message+=s.getAddress()+"<br>";
+		message+="<p>If your shipping address is not the same as billing address please update shipping address.</p>";
+		message+="<h2>Order will be shipped soon!Thank you.</h2>";
+		Orderhist o=new Orderhist();
+		o.setAmount(Sum);	
+		o.setShopper(s);
+		DBUtil.insertOrder(o);
+		 String q1="select o from Orderhist o where o.shopper.userId= "+s.getUserId()+" and o.amount="+Sum;
+			TypedQuery<Orderhist>bq3=em.createQuery(q1,Orderhist.class);
+			List<Orderhist> list_order=bq3.getResultList();
+			Orderhist o1=null;
+			for(Orderhist temp:list_order){
+				o1=temp;
+			}
+			for(Cart temp:list_cart){
+				message+="<tr ><td style=\" background-color:white;border:2px solid black\">"+temp.getProduct().getName() +  
+						
+		          		   "</td><td style=\" background-color:white;border:2px solid black\">"+temp.getQty()+
+		          		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+          		   
+		          		  "</td></tr>" ; 
+				
+				DBUtil.updateCart(temp,o1);
+				
+			 }	
+		//DBUtil.updateCartOrder(o);	
 		request.setAttribute("message", message);						
 		getServletContext().getRequestDispatcher("/Confirm.jsp").forward(request, response);
 	}

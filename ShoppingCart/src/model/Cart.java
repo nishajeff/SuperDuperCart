@@ -24,6 +24,11 @@ public class Cart implements Serializable {
 
 	private BigDecimal total;
 
+	//bi-directional many-to-one association to Orderhist
+	@ManyToOne(cascade={CascadeType.PERSIST},fetch=FetchType.LAZY)
+	@JoinColumn(name="ORDER_ID")
+	private Orderhist orderhist;
+
 	//bi-directional many-to-one association to Product
 	@ManyToOne
 	@JoinColumn(name="PID")
@@ -67,6 +72,14 @@ public class Cart implements Serializable {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+
+	public Orderhist getOrderhist() {
+		return this.orderhist;
+	}
+
+	public void setOrderhist(Orderhist orderhist) {
+		this.orderhist = orderhist;
 	}
 
 	public Product getProduct() {

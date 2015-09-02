@@ -6,6 +6,7 @@
 		<class>model.Product</class>
 		<class>model.Shopper</class>
 		<class>model.Comment</class>
+		<class>model.Orderhist</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.exclude-eclipselink-orm" value="false"/>

@@ -6,6 +6,7 @@ import java.math.MathContext;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Cart;
 import model.DBUtil;
+import model.Orderhist;
 import model.Product;
 import model.Shopper;
 import model.Shopping;
@@ -77,13 +79,23 @@ public class PutIntoCart extends HttpServlet {
 			new_P=temp;
 		}
 		MathContext mc = new MathContext(4); 
-		model.Cart c=new model.Cart();				
+		model.Cart c=new model.Cart();
+		Orderhist o = null;
+		String q1="select o from Orderhist o where o.oId=0";
+		TypedQuery<Orderhist>bq1 =em.createQuery(q1,Orderhist.class);
+		List<Orderhist> listo=bq1.getResultList();
+		for(Orderhist temp:listo){
+			//System.out.println("hello");
+			o=temp;
+		}
+		
 		c.setProduct(new_P);
 		c.setQty(new BigDecimal(qty));	
 		BigDecimal  amt=c.getQty().multiply(new_P.getPrice(), mc);
 		c.setTotal(amt);
 		c.setShopper(s);
-		c.setStatus("no");			
+		c.setStatus("no");
+		c.setOrderhist(o);
 		System.out.println(c.getProduct().getName());		
 		shop.putToMap(c.getProduct().getName(), c);
 		count++;

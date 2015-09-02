@@ -26,6 +26,12 @@ public class Shopper implements Serializable {
 
 	private String name;
 
+	private String shipaddress;
+
+	//bi-directional many-to-one association to Cart
+	@OneToMany(mappedBy="shopper")
+	private List<Cart> carts;
+
 	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="shopper")
 	private List<Comment> comments;
@@ -63,6 +69,36 @@ public class Shopper implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getShipaddress() {
+		return this.shipaddress;
+	}
+
+	public void setShipaddress(String shipaddress) {
+		this.shipaddress = shipaddress;
+	}
+
+	public List<Cart> getCarts() {
+		return this.carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
+	public Cart addCart(Cart cart) {
+		getCarts().add(cart);
+		cart.setShopper(this);
+
+		return cart;
+	}
+
+	public Cart removeCart(Cart cart) {
+		getCarts().remove(cart);
+		cart.setShopper(null);
+
+		return cart;
 	}
 
 	public List<Comment> getComments() {

@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Cart;
 import model.DBUtil;
+import model.Orderhist;
 import model.Product;
 import model.Shopper;
 import model.Shopping;
@@ -71,6 +73,8 @@ public class Login extends HttpServlet {
 			message+="Welcome back "+temp.getName()+"!Begin Shopping...<br>";
 			s=temp;
 		}
+		//**********************************************
+		
 		
 		q="select c from Cart c where c.shopper.userId= "+s.getUserId()+" and c.status='no'";
 		TypedQuery<Cart>bq2=em.createQuery(q,Cart.class);
@@ -87,10 +91,10 @@ public class Login extends HttpServlet {
 		           		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+	
 		           		   
 		           		  "</td></tr>" ; 
-		        	//shop.putToMap(temp.getProduct().getName(), temp);
+		        	shop.putToMap(temp.getProduct().getName(), temp);
 		        	cart_count++;
 		        }
-		        //int count=DBUtil.deleteCart(s);
+		        int count=DBUtil.deleteCart(s);
 		     
 		        session.setAttribute("shop",shop);
 		        //System.out.println(count+" items have been deleted");

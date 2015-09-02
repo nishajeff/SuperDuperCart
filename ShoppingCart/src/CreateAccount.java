@@ -52,6 +52,7 @@ public class CreateAccount extends HttpServlet {
 		Shopper s=new Shopper();
 		s.setName(name);
 		s.setAddress(address);
+		s.setShipaddress("same");
 		s.setCreditNum(new BigDecimal(num));
 		model.DBUtil.insertUser(s);
 		EntityManager em=DBUtil.getEmFactory().createEntityManager();

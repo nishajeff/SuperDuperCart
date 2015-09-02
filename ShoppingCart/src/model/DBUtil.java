@@ -14,11 +14,14 @@ public class DBUtil {
 			public static void insert(Cart cart) {
 					
 					EntityManager em = DBUtil.getEmFactory().createEntityManager();
+				
 					 EntityTransaction trans = em.getTransaction();
+					// EntityTransaction trans1 = em.getTransaction();
 					 trans.begin(); 
 					 try {
 					 em.persist(cart);
 					 trans.commit();
+					// trans1.commit();
 					 } catch (Exception e) {
 					 System.out.println(e);
 					 trans.rollback();
@@ -47,13 +50,30 @@ public class DBUtil {
 			}
 			}
 			
-public static void insertComments(Comment c) {
+			public static void insertComments(Comment c) {
 				
 				EntityManager em = DBUtil.getEmFactory().createEntityManager();
 				 EntityTransaction trans = em.getTransaction();
 				 trans.begin(); 
 				 try {
 				 em.persist(c);
+				 trans.commit();
+				 } catch (Exception e) {
+				 System.out.println(e);
+				 trans.rollback();
+				 } finally {
+				 em.close();
+
+			}
+			}
+			
+			public static void insertOrder(Orderhist o) {
+				
+				EntityManager em = DBUtil.getEmFactory().createEntityManager();
+				 EntityTransaction trans = em.getTransaction();
+				 trans.begin(); 
+				 try {
+				 em.persist(o);
 				 trans.commit();
 				 } catch (Exception e) {
 				 System.out.println(e);
@@ -84,11 +104,49 @@ public static void insertComments(Comment c) {
 				
 			}
 			
-			public static void updateCart(Cart c){
+			public static void updateCart(Cart c,Orderhist o){
 				EntityManager em=DBUtil.getEmFactory().createEntityManager();
 				 EntityTransaction trans = em.getTransaction();
 				
-				 String q="update  Cart c set c.status='yes'";				
+				 String q="update  Cart c set c.status='yes'";	
+				 String q1="update Cart c set c.orderhist.oId="+o.getOId();
+				 trans.begin(); 
+				 try {
+					 em.createQuery(q).executeUpdate();
+					 em.createQuery(q1).executeUpdate();
+				 trans.commit();				
+				 } catch (Exception e) {
+				 System.out.println(e);
+				 trans.rollback();
+				 } finally {
+				 em.close();
+			}	
+				
+			}
+			/*public static void updateCartOrder(Orderhist o){
+				EntityManager em=DBUtil.getEmFactory().createEntityManager();
+				 EntityTransaction trans = em.getTransaction();
+				
+				 String q="update  Cart c set c.orderhist="+o+" where c.shopper.userId="+o.getShopper().getUserId()+" and c.status='no'";	
+				
+				 trans.begin(); 
+				 try {
+					 em.createQuery(q).executeUpdate();
+				 trans.commit();				
+				 } catch (Exception e) {
+				 System.out.println(e);
+				 trans.rollback();
+				 } finally {
+				 em.close();
+			}	
+				
+			}*/
+			public static void updateShipAddress(String s){
+				EntityManager em=DBUtil.getEmFactory().createEntityManager();
+				 EntityTransaction trans = em.getTransaction();
+				
+				 String q="update Shopper s set  s.shipaddress='"+s+"'";	
+				
 				 trans.begin(); 
 				 try {
 					 em.createQuery(q).executeUpdate();

@@ -13,6 +13,13 @@
 <body>
 
 ${message}
+<div align="center">
+<form action ="update" method="post">
+<label >Shipping Address: </label>
+<input  type="text" name="ship" required ><br>
+<input type="submit" value="update shipping address" id="submit">
+</form>
+</div>
 <div align="right">
 <form action ="home.jsp" method="post">
 <input type="submit" value="Sign in" id="submit">
