@@ -49,8 +49,8 @@ public class SaveCart extends HttpServlet {
 		message1="";
 		HttpSession session=request.getSession(true);
 		Shopper s=(Shopper) session.getAttribute("user");
-		int count=DBUtil.deleteCart(s);	
-		//int count1=DBUtil.deleteCartAdmin(s);		
+		//int count=DBUtil.deleteCart(s);	
+		
 		Shopping shop=(Shopping) session.getAttribute("shop");
 		HashMap<String, Cart> h=shop.getMap();
         for (Map.Entry<String,Cart> entry : h.entrySet())
@@ -59,7 +59,7 @@ public class SaveCart extends HttpServlet {
 	       	 Cart temp=entry.getValue();     
 	       	 
 	       	 model.DBUtil.insert(temp);
-	       	// model.DBUtil.insertToAdmin(temp);
+	      
         }
 
         message1+="<h3 align=\"center\">Order Saved.<br> You are signed out!Please come back and complete the order!</h3><br><h2>Order Summary:</h2>";

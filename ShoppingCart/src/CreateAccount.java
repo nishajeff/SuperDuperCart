@@ -58,7 +58,7 @@ public class CreateAccount extends HttpServlet {
 		String q="select s from Shopper s where s.name='"+name+"'";		
 		TypedQuery<Shopper>bq =em.createQuery(q,Shopper.class);
 		List<Shopper> list=bq.getResultList();		
-		message+="<h3 align=\"center\">Account Created.Please login  to start tweeting.</h3>";
+		message+="<h3 align=\"center\">Account Created.Please login  to start shopping.</h3>";
 		message+="<div align=\"center\">";
 		message+="<h4 >Your Account Information</h4>";
 		System.out.println("message is:"+message);

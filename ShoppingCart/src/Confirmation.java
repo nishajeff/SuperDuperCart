@@ -52,30 +52,19 @@ public class Confirmation extends HttpServlet {
 		// TODO Auto-generated method stub
 		message="";
 		BigDecimal Sum =new BigDecimal(0L);
+		BigDecimal Tax=new BigDecimal(0.06);
+		BigDecimal Total =new BigDecimal(0L);
 		MathContext mc = new MathContext(4); 
 		HttpSession session = request.getSession(true);		
 		Shopping shop=(Shopping) session.getAttribute("shop");
 		Shopper s=(Shopper) session.getAttribute("user");
-		HashMap<String, Cart> h=shop.getMap();
-       /* for (Map.Entry<String,Cart> entry : h.entrySet())
-        {
-        	System.out.println("Sum="+Sum);
-       	 Cart temp=entry.getValue();
-       	Sum= Sum.add(temp.getTotal(), mc);
-       	 
-       	 model.DBUtil.insert(temp);
-        }*/
+		HashMap<String, Cart> h=shop.getMap();       
 
         message+="<h3 align=\"center\">Thank you for shopping with us!</h3><br><h2 align=\"center\">Order Summary:</h2>";
-        /*Shopper s= (Shopper) session.getAttribute("user");	
-        EntityManager em=DBUtil.getEmFactory().createEntityManager();
-		String q="select c from Cart c where c.shopper.userId="+s.getUserId();
-		TypedQuery<Cart>bq =em.createQuery(q,Cart.class);*/
+       
 		message+="<div align=\"center\"><table style=\"border:2px solid black\">";
         message+="<th style=\" background-color:gray;border:2px solid black\">Product Name</th><th style=\" background-color:gray;border:2px solid black\">Quantity</th><th style=\" background-color:gray;border:2px solid black\">Total</th>";
-		//List<Cart> list=bq.getResultList();
 		
-		//for(Cart temp:list){
     
         for (Map.Entry<String,Cart> entry : h.entrySet())
         {
@@ -83,17 +72,32 @@ public class Confirmation extends HttpServlet {
 			message+="<tr ><td style=\" background-color:white;border:2px solid black\">"+temp.getProduct().getName() +  
 					
           		   "</td><td style=\" background-color:white;border:2px solid black\">"+temp.getQty()+
-          		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+	
-          		   
+          		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+          		   
           		  "</td></tr>" ; 
+			temp.setStatus("yes");
 			Sum= Sum.add(temp.getTotal(), mc);
-			
+			model.DBUtil.insert(temp);
+					
 		}
-		message+="<h4>Grand Total= "+Sum+"</h4>";
-		int deletedCount=DBUtil.deleteCart(s);
-		//TypedQuery<Cart>bq=em.createQuery(q,Cart.class);
-		//int deletedCount = bq.executeUpdate();
-		message+="<h4>"+deletedCount+" Items from saved cart have been deleted on checkout.</h4>";
+        EntityManager em=DBUtil.getEmFactory().createEntityManager();
+        String q="select c from Cart c where c.shopper.userId= "+s.getUserId()+" and c.status='no'";
+		TypedQuery<Cart>bq2=em.createQuery(q,Cart.class);
+		List<Cart> list_cart=bq2.getResultList();
+		for(Cart temp:list_cart){
+			message+="<tr ><td style=\" background-color:white;border:2px solid black\">"+temp.getProduct().getName() +  
+					
+	          		   "</td><td style=\" background-color:white;border:2px solid black\">"+temp.getQty()+
+	          		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+          		   
+	          		  "</td></tr>" ; 
+			DBUtil.updateCart(temp);
+			Sum= Sum.add(temp.getTotal(), mc);
+		 }
+		Total=Sum.multiply(Tax, mc);
+		
+		message+="<h4>Total= "+Sum+"</h4>";
+		Sum=Sum.subtract(Total, mc);
+		message+="<h3>Tax=6%</h3>";
+		message+="<h2>Grand Total= "+Sum+"</h2>";
 		request.setAttribute("message", message);						
 		getServletContext().getRequestDispatcher("/Confirm.jsp").forward(request, response);
 	}

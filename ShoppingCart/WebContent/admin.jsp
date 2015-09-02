@@ -17,13 +17,20 @@
     </div>
     <div>
       <ul class="nav navbar-nav">      
-      <li><a href="home.jsp">Shopping Cart</a></li>     
+       <li><a href="home.jsp">Welcome</a></li>    
        <li><a href="products">Product List</a></li> 
-        <li class="active"><a href="admin">Admin Page</a></li>   
+        <li class="active"><a href="admin.jsp">Admin SignIn </a></li>   
       </ul>
     </div>
   </div>
 </nav>
+<div align="center">
+<form action="admin" method="post">
+<label > Name: </label>
+<input  type="text" name="name" required ><br>
+<input type="submit" value="Sign In" id="submit">
+</form>
+</div>
 ${message}
 </body>
 </html>

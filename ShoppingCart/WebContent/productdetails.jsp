@@ -11,20 +11,35 @@
 <title>Product Details</title>
 </head>
 <body>
-
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">    
     </div>
     <div>
-      <ul class="nav navbar-nav">
-       <li><a href="admin.jsp">Admin SignIn</a></li>          
-      <li><a href="products.jsp">Product List</a></li>       
+      <ul class="nav navbar-nav"> 
+       <li><a href="home.jsp">Welcome</a></li>         
+      <li class="active"><a href="Shopping.jsp">Shopping Cart</a></li>       
       </ul>
     </div>
   </div>
 </nav>
-${message}<br>
 
+${message}
+
+
+
+
+<div align="center">
+<form action="PutIntoCart" method="post">
+<label >Quantity: </label>
+<input  type="text" name="qty" required ><br>
+<input type="submit" value="Add To Cart" id="submit">
+</form>
+</div>
+<div align="left">
+<form action="PutIntoCart" method="post">
+<input type="submit" value="Go Back" id="submit">
+</form>
+</div>
 </body>
 </html>

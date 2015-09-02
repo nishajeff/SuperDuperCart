@@ -28,23 +28,8 @@ public class DBUtil {
 				}
 
 			 }
-			public static void insertToAdmin(Admincart user) {
-				
-				EntityManager em = DBUtil.getEmFactory().createEntityManager();
-				 EntityTransaction trans = em.getTransaction();
-				 trans.begin(); 
-				 try {
-				 em.persist(user);
-				 trans.commit();
-				 } catch (Exception e) {
-				 System.out.println(e);
-				 trans.rollback();
-				 } finally {
-				 em.close();
-
-			}
-
-		 }
+			
+		 
 			public static void insertUser(Shopper user) {
 				
 				EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -61,11 +46,28 @@ public class DBUtil {
 
 			}
 			}
+			
+public static void insertComments(Comment c) {
+				
+				EntityManager em = DBUtil.getEmFactory().createEntityManager();
+				 EntityTransaction trans = em.getTransaction();
+				 trans.begin(); 
+				 try {
+				 em.persist(c);
+				 trans.commit();
+				 } catch (Exception e) {
+				 System.out.println(e);
+				 trans.rollback();
+				 } finally {
+				 em.close();
+
+			}
+			}
 			public static int deleteCart(Shopper s){
 				EntityManager em=DBUtil.getEmFactory().createEntityManager();
 				 EntityTransaction trans = em.getTransaction();
 				 int deletedCount =0;
-				 String q="delete from Cart c where c.shopper.userId="+s.getUserId();				
+				 String q="delete from Cart c where c.shopper.userId="+s.getUserId()+" and c.status='no'";				
 				 trans.begin(); 
 				 try {
 					 deletedCount=em.createQuery(q).executeUpdate();
@@ -82,25 +84,23 @@ public class DBUtil {
 				
 			}
 			
-			public static int deleteCartAdmin(Shopper s){
+			public static void updateCart(Cart c){
 				EntityManager em=DBUtil.getEmFactory().createEntityManager();
 				 EntityTransaction trans = em.getTransaction();
-				 int deletedCount =0;
-				 String q="delete from Admincart c where c.shopper.userId="+s.getUserId();				
+				
+				 String q="update  Cart c set c.status='yes'";				
 				 trans.begin(); 
 				 try {
-					 deletedCount=em.createQuery(q).executeUpdate();
-				 trans.commit();
-				 return deletedCount;
+					 em.createQuery(q).executeUpdate();
+				 trans.commit();				
 				 } catch (Exception e) {
 				 System.out.println(e);
 				 trans.rollback();
 				 } finally {
 				 em.close();
-
-			}
-				return deletedCount;
+			}	
 				
 			}
-
+			
+			
 }

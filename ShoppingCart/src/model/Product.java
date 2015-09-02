@@ -24,9 +24,9 @@ public class Product implements Serializable {
 
 	private BigDecimal price;
 
-	//bi-directional many-to-one association to Cart
+	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="product")
-	private List<Cart> carts;
+	private List<Comment> comments;
 
 	public Product() {
 	}
@@ -63,26 +63,26 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
-	public List<Cart> getCarts() {
-		return this.carts;
+	public List<Comment> getComments() {
+		return this.comments;
 	}
 
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
-	public Cart addCart(Cart cart) {
-		getCarts().add(cart);
-		cart.setProduct(this);
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setProduct(this);
 
-		return cart;
+		return comment;
 	}
 
-	public Cart removeCart(Cart cart) {
-		getCarts().remove(cart);
-		cart.setProduct(null);
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setProduct(null);
 
-		return cart;
+		return comment;
 	}
 
 }

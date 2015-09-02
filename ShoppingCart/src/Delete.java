@@ -44,11 +44,14 @@ public class Delete extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
 		message="";
+		int count=(int) session.getAttribute("count"); 
 		String name=request.getParameter("name");
-		HttpSession session = request.getSession(true);		
+			
 		Shopping shop=(Shopping) session.getAttribute("shop");
-		shop.getMap().remove(name);		
+		shop.getMap().remove(name);	
+		count--;
 		  session.setAttribute("shop", shop);
 		message+="<h3 align=\"center\">Shopping Cart:</h3>";
 		 message+="<div align=\"center\"><table style=\"border:2px solid black\">";
@@ -64,6 +67,12 @@ public class Delete extends HttpServlet {
 	             		  "</td></tr>" ;  
 			}
       message+="</div>";
+      String out="";
+      if(count==1)
+     	 out="item";
+      else
+     	 out="items";
+      message+="<p align=\"center\">You have "+count+" "+out+" in your cart.</p>";
       List<Product>l=(List<Product>) session.getAttribute("Products");
      
       message+="<div align=\"left\"><table style=\"border:2px solid black\">";
@@ -75,6 +84,7 @@ public class Delete extends HttpServlet {
         		  "</td></tr>" ;  
 		}
      message+=" </div>";
+     session.setAttribute("count", count);
 			request.setAttribute("message", message);		
 			getServletContext().getRequestDispatcher("/Shopping.jsp").forward(request, response);
 	}

@@ -5,7 +5,7 @@
 		<class>model.Cart</class>
 		<class>model.Product</class>
 		<class>model.Shopper</class>
-		<class>model.Admincart</class>
+		<class>model.Comment</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.exclude-eclipselink-orm" value="false"/>

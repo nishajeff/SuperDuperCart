@@ -17,22 +17,15 @@ ${message}
     <div class="navbar-header">    
     </div>
     <div>
-      <ul class="nav navbar-nav">      
+      <ul class="nav navbar-nav"> 
+       <li><a href="home.jsp">Welcome</a></li>         
       <li class="active"><a href="Shopping.jsp">Shopping Cart</a></li>       
       </ul>
     </div>
   </div>
 </nav>
 ${message1}
-<div align="center">
-<form action="PutIntoCart" method="post">
-<label >Product ID: </label>
-<input  type="text" name="pid" required ><br>
-<label >Quantity: </label>
-<input  type="text" name="qty" required ><br>
-<input type="submit" value="Enter Product" id="submit">
-</form>
-</div>
+
 <div align="left">
 <form action ="SaveCart" method="post">
 <input type="submit" value="Save Cart" id="submit">

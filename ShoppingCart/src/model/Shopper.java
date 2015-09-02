@@ -25,10 +25,7 @@ public class Shopper implements Serializable {
 	private BigDecimal creditNum;
 
 	private String name;
-
-	//bi-directional many-to-one association to Admincart
-	@OneToMany(mappedBy="shopper")
-	private List<Admincart> admincarts;
+	
 
 	public Shopper() {
 	}
@@ -65,26 +62,5 @@ public class Shopper implements Serializable {
 		this.name = name;
 	}
 
-	public List<Admincart> getAdmincarts() {
-		return this.admincarts;
-	}
-
-	public void setAdmincarts(List<Admincart> admincarts) {
-		this.admincarts = admincarts;
-	}
-
-	public Admincart addAdmincart(Admincart admincart) {
-		getAdmincarts().add(admincart);
-		admincart.setShopper(this);
-
-		return admincart;
-	}
-
-	public Admincart removeAdmincart(Admincart admincart) {
-		getAdmincarts().remove(admincart);
-		admincart.setShopper(null);
-
-		return admincart;
-	}
-
+	
 }

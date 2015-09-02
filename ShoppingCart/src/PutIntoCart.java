@@ -53,18 +53,27 @@ public class PutIntoCart extends HttpServlet {
 		try{
 		message="";
 		
-		HttpSession session = request.getSession(true);	
-		Shopper s= (Shopper) session.getAttribute("user");		
-		int qty=Integer.parseInt(request.getParameter("qty"));
-		int id=Integer.parseInt(request.getParameter("pid"));
-		
+		HttpSession session = request.getSession(true);
+		int count=(int) session.getAttribute("count");
+		Shopper s= (Shopper) session.getAttribute("user");	
+		String quant=request.getParameter("qty");
+			
+		int id=(int) session.getAttribute("pid");
 		model.Product new_P=new model.Product();
+		Shopping shop;
+		if(session.getAttribute("shop")==null){
+			shop=new Shopping();
+			}	
+			else
+				shop=(Shopping) session.getAttribute("shop");
+		if(!(quant==null)){
+		int qty=Integer.parseInt(quant);	
 		EntityManager em=DBUtil.getEmFactory().createEntityManager();
 		String q="select p from Product p where p.pid="+id;
 		TypedQuery<Product>bq =em.createQuery(q,Product.class);
 		List<Product> list=bq.getResultList();
 		for(Product temp:list){
-			System.out.println("hello");
+			//System.out.println("hello");
 			new_P=temp;
 		}
 		MathContext mc = new MathContext(4); 
@@ -74,23 +83,16 @@ public class PutIntoCart extends HttpServlet {
 		BigDecimal  amt=c.getQty().multiply(new_P.getPrice(), mc);
 		c.setTotal(amt);
 		c.setShopper(s);
-		Shopping shop;
-		//HttpSession session1 = request.getSession();
-		System.out.println(c.getProduct().getName());
-		if(session.getAttribute("shop")==null){
-		shop=new Shopping();
-		}	
-		else
-			shop=(Shopping) session.getAttribute("shop");
+		c.setStatus("no");			
+		System.out.println(c.getProduct().getName());		
 		shop.putToMap(c.getProduct().getName(), c);
-		//model.DBUtil.insert(c);
-		//session.setAttribute("shop", shop);
+		count++;
+		}
+		
 		message+="<h3 align=\"center\">Shopping Cart:</h3>";
 		 message+="<div align=\"center\"><table style=\"border:2px solid black\">";
          message+="<th style=\" background-color:gray;border:2px solid black\">Product Name</th><th style=\" background-color:gray;border:2px solid black\">Quantity</th><th style=\" background-color:gray;border:2px solid black\">Total</th><th style=\" background-color:gray;border:2px solid black\">EDIT</th>";
-		 //q="select c from Cart c where c.shopper.userId="+s.getUserId();		 
-		 //TypedQuery<Cart>bq1 =em.createQuery(q,Cart.class);
-			//List<Cart> list1=bq1.getResultList();
+		 
          HashMap<String, Cart> h=shop.getMap();
          for (Map.Entry<String,Cart> entry : h.entrySet())
          {
@@ -102,6 +104,12 @@ public class PutIntoCart extends HttpServlet {
 	             		   "</td><td><a href=\"Delete?name=" +temp.getProduct().getName()+ "\">"+"DELETE</a>"+
 	             		  "</td></tr>" ;  
 			}
+         String out="";
+         if(count==1)
+        	 out="item";
+         else
+        	 out="items";
+         message+="<p align=\"center\">You have "+count+" "+out+" in your cart.</p>";
          message+="</div>";
          message+="<h4>Product List</h4>";
         List<Product>l=(List<Product>) session.getAttribute("Products");
@@ -114,11 +122,11 @@ public class PutIntoCart extends HttpServlet {
           		  "</td></tr>" ;  
 		}
        message+=" </div>";
+       session.setAttribute("count", count);
      		session.setAttribute("shop", shop);
 			request.setAttribute("message", message);		
 			getServletContext().getRequestDispatcher("/Shopping.jsp").forward(request, response);
-			}catch(Exception e){
-				//System.out.println(e.getMessage());
+			}catch(Exception e){				
 				e.printStackTrace();
 			}
 		 

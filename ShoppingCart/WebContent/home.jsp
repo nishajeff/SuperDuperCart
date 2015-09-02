@@ -15,9 +15,9 @@
     </div>
     <div>
       <ul class="nav navbar-nav">      
-      <li class="active"><a href="home.jsp">Shopping Cart</a></li>     
+      <li class="active"><a href="home.jsp">Welcome</a></li>     
        <li><a href="products">Product List</a></li> 
-        <li><a href="admin">Admin Page</a></li>   
+        <li><a href="admin.jsp">Admin SignIn</a></li>   
       </ul>
     </div>
   </div>

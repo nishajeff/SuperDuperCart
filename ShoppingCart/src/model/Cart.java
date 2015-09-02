@@ -20,6 +20,8 @@ public class Cart implements Serializable {
 
 	private BigDecimal qty;
 
+	private String status;
+
 	private BigDecimal total;
 
 	//bi-directional many-to-one association to Product
@@ -49,6 +51,14 @@ public class Cart implements Serializable {
 
 	public void setQty(BigDecimal qty) {
 		this.qty = qty;
+	}
+
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public BigDecimal getTotal() {

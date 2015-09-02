@@ -51,11 +51,12 @@ public class Login extends HttpServlet {
 		message1="";
 		message="";
 		HttpSession session = request.getSession();
-		
+		int cart_count=0;
 		
 		String id=request.getParameter("userID");
 		// get parameters from the request
 		session.setAttribute("userid", id);
+		//session.setAttribute("count",cart_count);
 		int idi=Integer.parseInt(id);		
 		EntityManager em=DBUtil.getEmFactory().createEntityManager();
 		String q="select s from Shopper s where s.userId="+idi;
@@ -71,7 +72,7 @@ public class Login extends HttpServlet {
 			s=temp;
 		}
 		
-		q="select c from Cart c where c.shopper.userId= "+s.getUserId();
+		q="select c from Cart c where c.shopper.userId= "+s.getUserId()+" and c.status='no'";
 		TypedQuery<Cart>bq2=em.createQuery(q,Cart.class);
 		List<Cart> list_cart=bq2.getResultList();
 		if(!(list_cart==null || list_cart.isEmpty())){
@@ -86,9 +87,13 @@ public class Login extends HttpServlet {
 		           		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+	
 		           		   
 		           		  "</td></tr>" ; 
-		        	shop.putToMap(temp.getProduct().getName(), temp);
-		        }		       
+		        	//shop.putToMap(temp.getProduct().getName(), temp);
+		        	cart_count++;
+		        }
+		        //int count=DBUtil.deleteCart(s);
+		     
 		        session.setAttribute("shop",shop);
+		        //System.out.println(count+" items have been deleted");
 		        
 		}
 		
@@ -102,6 +107,7 @@ public class Login extends HttpServlet {
           		  
           		  "</td></tr>" ;  
 		}
+		session.setAttribute("count",cart_count);
 		session.setAttribute("user", s);
 		session.setAttribute("Products", listp);
 		}
