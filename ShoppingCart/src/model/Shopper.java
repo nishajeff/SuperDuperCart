@@ -25,7 +25,10 @@ public class Shopper implements Serializable {
 	private BigDecimal creditNum;
 
 	private String name;
-	
+
+	//bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy="shopper")
+	private List<Comment> comments;
 
 	public Shopper() {
 	}
@@ -62,5 +65,26 @@ public class Shopper implements Serializable {
 		this.name = name;
 	}
 
-	
+	public List<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public Comment addComment(Comment comment) {
+		getComments().add(comment);
+		comment.setShopper(this);
+
+		return comment;
+	}
+
+	public Comment removeComment(Comment comment) {
+		getComments().remove(comment);
+		comment.setShopper(null);
+
+		return comment;
+	}
+
 }

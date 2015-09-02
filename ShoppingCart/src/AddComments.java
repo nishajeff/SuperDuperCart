@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import model.Comment;
 import model.DBUtil;
 import model.Product;
+import model.Shopper;
 
 /**
  * Servlet implementation class AddComments
@@ -49,6 +50,7 @@ public class AddComments extends HttpServlet {
 		HttpSession session = request.getSession(true);	
 		Product p=new Product();
 		int pid=(int) session.getAttribute("pid");
+		Shopper s=(Shopper) session.getAttribute("user");
 		String rating=request.getParameter("inlineRadioOptions");
 		String comments=request.getParameter("comments");
 		EntityManager em=DBUtil.getEmFactory().createEntityManager();
@@ -63,6 +65,7 @@ public class AddComments extends HttpServlet {
 		c.setProduct(p);
 		c.setRating(new BigDecimal(rating));
 		c.setComments(comments);
+		c.setShopper(s);
 		DBUtil.insertComments(c);	
 		request.setAttribute("message", message);						
 		getServletContext().getRequestDispatcher("/productdetails.jsp").forward(request, response);

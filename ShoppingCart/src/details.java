@@ -62,11 +62,12 @@ public class details extends HttpServlet {
 			TypedQuery<Comment>bq2 =em.createQuery(q1,Comment.class);
 			List<Comment> listc=bq2.getResultList();
 			message+="<div align=\"left\"><table style=\"border:2px solid black\">";
-		      message+="<th style=\" background-color:gray;border:2px solid black\">Comments</th><th style=\" background-color:gray;border:2px solid black\">Rating</th><th style=\" background-color:gray;border:2px solid black\">Date</th>";
+		      message+="<th style=\" background-color:gray;border:2px solid black\">Comments</th><th style=\" background-color:gray;border:2px solid black\">Rating</th><th style=\" background-color:gray;border:2px solid black\">Date</th><th style=\" background-color:gray;border:2px solid black\">User Name</th>";
 			for(Comment temp1:listc){
 				message+="<tr ><td style=\" background-color:white;border:2px solid black\">"+temp1.getComments() +
 						"</td><td style=\" background-color:white;border:2px solid black\">"+temp1.getRating() +
 						"</td><td style=\" background-color:white;border:2px solid black\">"+temp1.getCdate() +
+						"</td><td style=\" background-color:white;border:2px solid black\">"+temp1.getShopper().getName() +
 						"</td></tr>";
 			}
 	    

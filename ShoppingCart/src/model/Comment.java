@@ -32,6 +32,11 @@ public class Comment implements Serializable {
 	@JoinColumn(name="P_ID")
 	private Product product;
 
+	//bi-directional many-to-one association to Shopper
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
+	private Shopper shopper;
+
 	public Comment() {
 	}
 
@@ -73,6 +78,14 @@ public class Comment implements Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Shopper getShopper() {
+		return this.shopper;
+	}
+
+	public void setShopper(Shopper shopper) {
+		this.shopper = shopper;
 	}
 
 }
