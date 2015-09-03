@@ -8,10 +8,9 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>Shopping</title>
+<title>Order History</title>
 </head>
 <body>
-${message}
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">    
@@ -19,22 +18,17 @@ ${message}
     <div>
       <ul class="nav navbar-nav"> 
        <li><a href="home.jsp">Welcome</a></li>         
-      <li class="active"><a href="Shopping.jsp">Shopping Cart</a></li>   
-       <li><a href="history">Order History</a></li>      
+      <li><a href="Shopping.jsp">Shopping Cart</a></li>   
+       <li class="active"><a href="history">Order History</a></li>      
       </ul>
     </div>
   </div>
 </nav>
-${message1}
-
-<div align="left">
-<form action ="SaveCart" method="post">
-<input type="submit" value="Save Cart" id="submit">
-</form>
-</div>
+${message}
+<h2>Sign back in to start shopping!</h2>
 <div align="right">
-<form action ="Confirmation" method="post">
-<input type="submit" value="Confirm Order" id="submit">
+<form action ="home.jsp" method="post">
+<input type="submit" value="Go Back to Sign in" id="submit">
 </form>
 </div>
 </body>

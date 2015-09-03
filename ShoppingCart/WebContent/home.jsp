@@ -23,7 +23,7 @@
   </div>
 </nav>
 <h1 align="center">Welcome To Shopping!</h1>
-
+${message}
 <div align="center">
 <form action="Login" method="post">
 <label >User ID: </label>

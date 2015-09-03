@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Cart;
 import model.DBUtil;
-import model.Orderhist;
+
 import model.Product;
 import model.Shopper;
 import model.Shopping;
@@ -80,14 +80,7 @@ public class PutIntoCart extends HttpServlet {
 		}
 		MathContext mc = new MathContext(4); 
 		model.Cart c=new model.Cart();
-		Orderhist o = null;
-		String q1="select o from Orderhist o where o.oId=0";
-		TypedQuery<Orderhist>bq1 =em.createQuery(q1,Orderhist.class);
-		List<Orderhist> listo=bq1.getResultList();
-		for(Orderhist temp:listo){
-			//System.out.println("hello");
-			o=temp;
-		}
+		
 		
 		c.setProduct(new_P);
 		c.setQty(new BigDecimal(qty));	
@@ -95,7 +88,7 @@ public class PutIntoCart extends HttpServlet {
 		c.setTotal(amt);
 		c.setShopper(s);
 		c.setStatus("no");
-		c.setOrderhist(o);
+		c.setOrderId(new BigDecimal(0L));
 		System.out.println(c.getProduct().getName());		
 		shop.putToMap(c.getProduct().getName(), c);
 		count++;

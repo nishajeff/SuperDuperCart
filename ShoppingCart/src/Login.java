@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Cart;
 import model.DBUtil;
-import model.Orderhist;
+
 import model.Product;
 import model.Shopper;
 import model.Shopping;
