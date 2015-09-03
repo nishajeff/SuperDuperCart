@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>Product Details</title>
+<title>Order Details</title>
 </head>
 <body>
 
@@ -19,7 +19,9 @@
     <div>
       <ul class="nav navbar-nav">
        <li><a href="admin.jsp">Admin SignIn</a></li>          
-      <li><a href="products.jsp">Product List</a></li>       
+      <li class="active"><a href="details.jsp">Order List</a></li> 
+      <li><a href="products">Product List</a></li>  
+      <li><a href="storecredit.jsp">Issue Store Credit</a></li>              
       </ul>
     </div>
   </div>

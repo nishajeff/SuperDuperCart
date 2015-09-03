@@ -8,34 +8,31 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<title>Shopping</title>
+<title>Store Credit</title>
 </head>
 <body>
-${message}
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">    
     </div>
     <div>
-      <ul class="nav navbar-nav"> 
-       <li><a href="home.jsp">Welcome</a></li>         
-      <li class="active"><a href="Shopping.jsp">Shopping Cart</a></li>   
-       <li><a href="history">Order History</a></li>      
+      <ul class="nav navbar-nav">
+       <li><a href="admin.jsp">Admin SignIn</a></li>          
+      <li><a href="details.jsp">Order List</a></li> 
+      <li><a href="products">Product List</a></li>  
+      <li class="active"><a href="storecredit.jsp">Issue Store Credit</a></li>              
       </ul>
     </div>
   </div>
 </nav>
-${message1}
+${message}
+<div align="center">
+<form action="credit" method="post">
+<label >Shopper ID: </label>
+<input  type="text" name="id" required ><br>
+<input type="submit" value="Add Credit to Shopper" id="submit">
+</form>
+</div>
 
-<div align="left">
-<form action ="SaveCart" method="post">
-<input type="submit" value="Save Cart" id="submit">
-</form>
-</div>
-<div align="right">
-<form action ="Confirmation" method="post">
-<input type="submit" value="Confirm Order" id="submit">
-</form>
-</div>
 </body>
 </html>

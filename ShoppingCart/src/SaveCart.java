@@ -63,7 +63,7 @@ public class SaveCart extends HttpServlet {
         message1+="<h3 align=\"center\">Order Saved.<br> You are signed out!Please come back and complete the order!</h3><br><h2>Order Summary:</h2>";
         
 		message1+="<div align=\"center\"><table style=\"border:2px solid black\">";
-        message1+="<th style=\" background-color:gray;border:2px solid black\">Product Name</th><th style=\" background-color:gray;border:2px solid black\">Quantity</th><th style=\" background-color:gray;border:2px solid black\">Total</th><th style=\" background-color:gray;border:2px solid black\">Status</th><th style=\" background-color:gray;border:2px solid black\">Order No:</th>";
+        message1+="<th style=\" background-color:gray;border:2px solid black\">Product Name</th><th style=\" background-color:gray;border:2px solid black\">Quantity</th><th style=\" background-color:gray;border:2px solid black\">Total</th><th style=\" background-color:gray;border:2px solid black\">Status</th>";
 		
     
         for (Map.Entry<String,Cart> entry : h.entrySet())
@@ -74,7 +74,7 @@ public class SaveCart extends HttpServlet {
           		   "</td><td style=\" background-color:white;border:2px solid black\">"+temp.getQty()+
           		   "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getTotal()+	
           		     "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getStatus()+
-          		       "</td><td style=\"background-color:white;border:2px solid black\">" +temp.getOrderhist().getOId()+
+          		  
           		  "</td></tr>" ; 
 			
 			
